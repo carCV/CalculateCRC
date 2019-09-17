@@ -26,7 +26,6 @@ QString checkedData;
 QVector<unsigned char> vtAllfileData;
 
 
-
 char ConvertChar2Byte(char ch)
 {
     if((ch >= '0') && (ch <= '9'))
@@ -41,19 +40,19 @@ char ConvertChar2Byte(char ch)
 
 void Widget::on_selectButton_clicked()
 {
+
     //每次选择文件时都要将vtAllfileData中原有的数据清除
     vtAllfileData.clear();
 
     QString path = QFileDialog::getOpenFileName(this,"open file dialog","/","files(*.s19 *.hex)");
     ui->pathLineEdit->setText(path);
 
+    QByteArray context;
+    QFile file(path);
+    QFileInfo info(path);
 
     if(path.isEmpty() == false)
     {
-        QFile file(path);
-        QFileInfo info(path);
-        QByteArray context;
-
         bool isOk = file.open(QIODevice::ReadOnly);
 
         if(ui->comboBox->currentText().compare(info.suffix(),Qt::CaseInsensitive) != 0)
@@ -62,7 +61,11 @@ void Widget::on_selectButton_clicked()
             isOk = false;
             ui->pathLineEdit->setText("请打开相应的" + ui->comboBox->currentText() + "文件");
             ui->recordsLineEdit->clear();
+            ui->textEdit->setEnabled(false);
             file.close();
+        }
+        else{
+            ui->textEdit->setEnabled(true);
         }
 
 
@@ -164,6 +167,7 @@ void Widget::on_selectButton_clicked()
         }
 
     }
+
 }
 
 void Widget::on_calculateButton_clicked()
@@ -191,7 +195,6 @@ void Widget::on_calculateButton_clicked()
     {
 
         crcValue.append(QString("%1").arg(crcBuf[i]&0xFF,2,16,QLatin1Char('0')).toUpper());
-
     }
 
     ui->crcLineEdit->setText(crcValue);
