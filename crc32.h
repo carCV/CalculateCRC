@@ -1,11 +1,12 @@
 #ifndef CRC32_H
 #define CRC32_H
 
+#define CRCPOLY_LE 0xedb88320
+
 typedef unsigned int u32;
 typedef unsigned char u8;
 
 
-#define CRCPOLY_LE 0xedb88320
 enum VKeyGenResultEx
 {
   KGRE_Ok = 0,

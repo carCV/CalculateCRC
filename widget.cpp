@@ -60,6 +60,7 @@ void Widget::on_selectButton_clicked()
             QMessageBox::warning(this,"FileTypeError","选择文件类型错误");
             isOk = false;
             ui->pathLineEdit->setText("请打开相应的" + ui->comboBox->currentText() + "文件");
+            ui->crcLineEdit->clear();
             ui->recordsLineEdit->clear();
             ui->textEdit->setEnabled(false);
             file.close();
@@ -91,8 +92,8 @@ void Widget::on_selectButton_clicked()
         QString str = ui->textEdit->toPlainText();
         QStringList sections = str.split('\n');
 
-
-        QString type;   //记录类型
+        //每行记录类型
+        QString type;
         unsigned char * pcData;
         quint8 count;
 
@@ -173,7 +174,8 @@ void Widget::on_selectButton_clicked()
 void Widget::on_calculateButton_clicked()
 {
     unsigned char crcBuf[4] = {0};
-    quint32 crcLen = 0;
+    unsigned int crcLen = 0;
+    QString crcValue;
 
     qDebug() <<"CheckedData's size =" << vtAllfileData.size() << "byte";
 
@@ -187,18 +189,15 @@ void Widget::on_calculateButton_clicked()
 //        qDebug() << "crcLen =" << crcLen;
     }
 
-
-    QString crcValue;
 //    QString str = QString("%1").arg(outChar&0xFF,2,16,QLatin1Char('0')); Qt数字字符串自动补0或空格
 
-    for(qint32 i=0; i<crcLen; i++)
+    for(unsigned int i=0; i<crcLen; i++)
     {
 
         crcValue.append(QString("%1").arg(crcBuf[i]&0xFF,2,16,QLatin1Char('0')).toUpper());
     }
 
     ui->crcLineEdit->setText(crcValue);
-
 
 
 }
