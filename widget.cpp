@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QSettings>
 #include <QDebug>
 
 #include "crc32.h"
@@ -40,11 +41,13 @@ char ConvertChar2Byte(char ch)
 
 void Widget::on_selectButton_clicked()
 {
+    QSettings setting("./Setting.ini",QSettings::IniFormat);  //为了记住上次打开的路径
+    QString lastPath = setting.value("LastFilePath").toString();
 
     //每次选择文件时都要将vtAllfileData中原有的数据清除
     vtAllfileData.clear();
 
-    QString path = QFileDialog::getOpenFileName(this,"open file dialog","/","files(*.s19 *.hex)");
+    QString path = QFileDialog::getOpenFileName(this,"open file dialog",lastPath,"files(*.s19 *.hex)");
     ui->pathLineEdit->setText(path);
 
     QByteArray context;
@@ -189,7 +192,7 @@ void Widget::on_calculateButton_clicked()
 //        qDebug() << "crcLen =" << crcLen;
     }
 
-//    QString str = QString("%1").arg(outChar&0xFF,2,16,QLatin1Char('0')); Qt数字字符串自动补0或空格
+//    QString str = QString("%1").arg(outChar&0xFF,2,16,QLatin1Char('0')); Qt数字字符串自动补0或空格的写法
 
     for(unsigned int i=0; i<crcLen; i++)
     {
