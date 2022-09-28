@@ -216,7 +216,7 @@
     <bool>false</bool>
    </property>
    <property name="currentText">
-    <string>S19</string>
+    <string>s19</string>
    </property>
    <property name="currentIndex">
     <number>0</number>
@@ -226,17 +226,17 @@
    </property>
    <item>
     <property name="text">
-     <string>S19</string>
+     <string>s19</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Hex</string>
+     <string>hex</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Bin</string>
+     <string>bin</string>
     </property>
    </item>
   </widget>

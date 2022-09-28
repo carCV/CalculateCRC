@@ -39,7 +39,7 @@ public:
     CHex();
     HexErrorCode getHexLineData(QByteArray bydata,HexLineData *p);
 private:
-    char ConvertHexChar(char ch);
+    char convertHexChar(char ch);
 
 };
 

@@ -49,7 +49,7 @@ public:
     ErrorCode getS19LineData(QByteArray data,S19LineData *p);
 
 private:
-    char ConvertHexChar(char ch);
+    char convertHexChar(char ch);
 
 };
 

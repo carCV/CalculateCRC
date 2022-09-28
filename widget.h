@@ -3,13 +3,10 @@
 
 #include <QWidget>
 #include <QFile>
-#include "cs19.h"
 
 namespace Ui {
 class Widget;
 }
-
-char ConvertChar2Byte(char ch);
 
 class Widget : public QWidget
 {
@@ -18,6 +15,7 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
+    char convertChar2Byte(char ch);
 
 private slots:
 

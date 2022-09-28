@@ -22,12 +22,7 @@ Widget::~Widget()
     delete ui;
 }
 
-quint32 records;
-QString checkedData;
-QVector<unsigned char> vtAllfileData;
-
-
-char ConvertChar2Byte(char ch)
+char Widget::convertChar2Byte(char ch)
 {
     if((ch >= '0') && (ch <= '9'))
         return (ch-0x30);
@@ -39,9 +34,15 @@ char ConvertChar2Byte(char ch)
         return -1;
 }
 
+quint32 records;
+QString checkedData;
+QVector<unsigned char> vtAllfileData;
+
+
 void Widget::on_selectButton_clicked()
 {
-    QSettings setting("./Setting.ini",QSettings::IniFormat);  //为了记住上次打开的路径
+    //为了记住上次打开的路径
+    QSettings setting("./Setting.ini",QSettings::IniFormat);
     QString lastPath = setting.value("LastFilePath").toString();
 
     //每次选择文件时都要将vtAllfileData中原有的数据清除
@@ -108,14 +109,14 @@ void Widget::on_selectButton_clicked()
          * Hex文件格式：: + count + address + type + data + checksum
          *
          */
-        if(info.suffix().endsWith("S19",Qt::CaseInsensitive))
+        if(info.suffix().endsWith("s19",Qt::CaseInsensitive))
         {
             for(quint32 i = 0; i < records; i++)
             {
                 checkedData = sections.at(i);
                 type = checkedData.mid(0,2);  //获取S19文件对应的type
                 pcData = (unsigned char*)checkedData.toLocal8Bit().data();
-                count = (ConvertChar2Byte(*(pcData + 2)) << 4) | ConvertChar2Byte(*(pcData + 3));
+                count = (convertChar2Byte(*(pcData + 2)) << 4) | convertChar2Byte(*(pcData + 3));
 
                 if(type == "S0")
                 {
@@ -126,7 +127,7 @@ void Widget::on_selectButton_clicked()
                 {
                     for(qint8 j = 0; j < count-3; j++)
                     {
-                        vtAllfileData.insert(vtAllfileData.end(),(ConvertChar2Byte(*(pcData + 2*j + 8)) << 4) | ConvertChar2Byte(*(pcData + 2*j + 9)));
+                        vtAllfileData.insert(vtAllfileData.end(),(convertChar2Byte(*(pcData + 2*j + 8)) << 4) | convertChar2Byte(*(pcData + 2*j + 9)));
                     }
 
 //                  checkedDatas.append(checkedData.mid(8,count*2-4-2));
@@ -135,7 +136,7 @@ void Widget::on_selectButton_clicked()
                 {
                     for(quint8 j = 0; j < count-4; j++)
                     {
-                        vtAllfileData.insert(vtAllfileData.end(),(ConvertChar2Byte(*(pcData + 2*j + 10)) << 4) | ConvertChar2Byte(*(pcData + 2*j + 11)));
+                        vtAllfileData.insert(vtAllfileData.end(),(convertChar2Byte(*(pcData + 2*j + 10)) << 4) | convertChar2Byte(*(pcData + 2*j + 11)));
                     }
 
 //                  checkedDatas.append(checkedData.mid(10,count*2-6-2));
@@ -144,26 +145,26 @@ void Widget::on_selectButton_clicked()
                 {
                     for(quint8 j = 0; j < count-5; j++)
                     {
-                        vtAllfileData.insert(vtAllfileData.end(),(ConvertChar2Byte(*(pcData + 2*j + 12)) << 4) | ConvertChar2Byte(*(pcData + 2*j + 13)));
+                        vtAllfileData.insert(vtAllfileData.end(),(convertChar2Byte(*(pcData + 2*j + 12)) << 4) | convertChar2Byte(*(pcData + 2*j + 13)));
                     }
 //                  checkedDatas.append(checkedData.mid(12,count*2-8-2));
                 }
              }
         }
-        else if(info.suffix().endsWith("Hex",Qt::CaseInsensitive))
+        else if(info.suffix().endsWith("hex",Qt::CaseInsensitive))
         {
             for(quint32 i = 0; i < records; i++)
             {
                 checkedData = sections.at(i);
                 type = checkedData.mid(7,2);  //获取Hex文件对应的type
                 pcData = (unsigned char*)checkedData.toLocal8Bit().data();
-                count = (ConvertChar2Byte(*(pcData + 1)) << 4) | ConvertChar2Byte(*(pcData +2));
+                count = (convertChar2Byte(*(pcData + 1)) << 4) | convertChar2Byte(*(pcData +2));
 
                 if(type == "00")
                 {
                     for(quint16 j = 0; j < count; j++)
                     {
-                        vtAllfileData.insert(vtAllfileData.end(),(ConvertChar2Byte(*(pcData + 2*j + 9)) << 4) | ConvertChar2Byte(*(pcData + 2*j + 10)));
+                        vtAllfileData.insert(vtAllfileData.end(),(convertChar2Byte(*(pcData + 2*j + 9)) << 4) | convertChar2Byte(*(pcData + 2*j + 10)));
                     }
                 }
 

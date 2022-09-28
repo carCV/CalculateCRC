@@ -10,7 +10,7 @@ CHex::CHex()
 
 }
 
-char CHex::ConvertHexChar(char ch)
+char CHex::convertHexChar(char ch)
 {
     if((ch >= '0') && (ch <= '9'))
         return (ch-0x30);
@@ -54,10 +54,10 @@ HexErrorCode CHex::getHexLineData(QByteArray sourceData,HexLineData *p)
         qDebug("HEX_FORMAT_ERROR");
         return HEX_FORMAT_ERROR;
     }
-    cs_temp += (ConvertHexChar(*(pcdata + 7)) << 4) | ConvertHexChar(*(pcdata + 8));
+    cs_temp += (convertHexChar(*(pcdata + 7)) << 4) | convertHexChar(*(pcdata + 8));
 
     //获取count
-    p->count = (ConvertHexChar(*(pcdata + 1)) << 4) | ConvertHexChar(*(pcdata + 2));
+    p->count = (convertHexChar(*(pcdata + 1)) << 4) | convertHexChar(*(pcdata + 2));
     cs_temp += p->count;
     if(p->count != (((linelen - 2) / 2) - 5)) {
         qDebug("HEX_FORMAT_ERROR");
@@ -65,19 +65,19 @@ HexErrorCode CHex::getHexLineData(QByteArray sourceData,HexLineData *p)
     }
 
     //获取address
-    p->address = (ConvertHexChar(*(pcdata + 3)) << 12) | (ConvertHexChar(*(pcdata + 4)) << 8) | (ConvertHexChar(*(pcdata + 5)) << 4) | ConvertHexChar(*(pcdata + 6));
+    p->address = (convertHexChar(*(pcdata + 3)) << 12) | (convertHexChar(*(pcdata + 4)) << 8) | (convertHexChar(*(pcdata + 5)) << 4) | convertHexChar(*(pcdata + 6));
     cs_temp += (p->address >> 8) & 0xFF;
     cs_temp += p->address & 0xFF;
 
     //获取data
     for(i = 0; i < p->count; i++)
     {
-        p->data[i] = (ConvertHexChar(*(pcdata + 2*i + 9)) << 4) | ConvertHexChar(*(pcdata + 2*i + 10));
+        p->data[i] = (convertHexChar(*(pcdata + 2*i + 9)) << 4) | convertHexChar(*(pcdata + 2*i + 10));
         cs_temp += p->data[i];
     }
 
     //获取checksum
-    p->checksum = (ConvertHexChar(*(pcdata + 2*i + 9)) << 4) | ConvertHexChar(*(pcdata + 2*i + 10));
+    p->checksum = (convertHexChar(*(pcdata + 2*i + 9)) << 4) | convertHexChar(*(pcdata + 2*i + 10));
     if(p->checksum != ((0x100 - cs_temp) & 0xFF))
     {
         qDebug("HEX_VERIFY_ERROR");

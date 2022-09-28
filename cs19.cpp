@@ -12,11 +12,11 @@ CS19::CS19()
 
 /**
  * 将字符转换为16进制字符
- * @brief CS19::ConvertHexChar
+ * @brief CS19::convertHexChar
  * @param ch
  * @return
  */
-char CS19::ConvertHexChar(char ch)
+char CS19::convertHexChar(char ch)
 {
     if((ch >= '0') && (ch <= '9'))
         return (ch-0x30);
@@ -67,7 +67,7 @@ ErrorCode CS19::getS19LineData(QByteArray sourceData, S19LineData *p)
     }
 
     //获取count
-    p->count = (ConvertHexChar(*(pcData + 2)) << 4) | ConvertHexChar(*(pcData + 3));
+    p->count = (convertHexChar(*(pcData + 2)) << 4) | convertHexChar(*(pcData + 3));
     cs_temp += p->count;
     if(p->count != (lineLen / 2) - 3)
     {
@@ -82,10 +82,10 @@ ErrorCode CS19::getS19LineData(QByteArray sourceData, S19LineData *p)
     }
     else if ((p->type == S1) || (p->type == S5) || (p->type == S9)) //2 Bytes address
     {
-        p->address = (ConvertHexChar(*(pcData + 4)) << 12) |
-                     (ConvertHexChar(*(pcData + 5)) << 8) |
-                     (ConvertHexChar(*(pcData + 6)) << 4) |
-                     (ConvertHexChar(*(pcData + 7)));
+        p->address = (convertHexChar(*(pcData + 4)) << 12) |
+                     (convertHexChar(*(pcData + 5)) << 8) |
+                     (convertHexChar(*(pcData + 6)) << 4) |
+                     (convertHexChar(*(pcData + 7)));
 
         cs_temp += (p->address >> 8) & 0x0FF;
         cs_temp += p->address & 0x0FF;
@@ -93,12 +93,12 @@ ErrorCode CS19::getS19LineData(QByteArray sourceData, S19LineData *p)
         //获取data
         for(i = 0; i < p->count - 3; i++)
         {
-            p->data[i] = (ConvertHexChar(*(pcData + 2*i + 8)) << 4) | ConvertHexChar(*(pcData + 2*i + 9));
+            p->data[i] = (convertHexChar(*(pcData + 2*i + 8)) << 4) | convertHexChar(*(pcData + 2*i + 9));
             cs_temp += p->data[i];
         }
 
         //获取checksum
-        p->checksum = (ConvertHexChar(*(pcData + 2*i + 8)) << 4) | ConvertHexChar(*(pcData + 2*i + 9));
+        p->checksum = (convertHexChar(*(pcData + 2*i + 8)) << 4) | convertHexChar(*(pcData + 2*i + 9));
         if(p->checksum != (0xFF - cs_temp))
         {
             qDebug("S19_Verify_Error");
@@ -107,12 +107,12 @@ ErrorCode CS19::getS19LineData(QByteArray sourceData, S19LineData *p)
     }
     else if((p->type == S2) || (p->type == S8))  //3 Bytes address
     {
-        p->address = (ConvertHexChar(*(pcData + 4)) << 20) |
-                     (ConvertHexChar(*(pcData + 5)) << 16) |
-                     (ConvertHexChar(*(pcData + 6)) << 12) |
-                     (ConvertHexChar(*(pcData + 7)) << 8) |
-                     (ConvertHexChar(*(pcData + 8)) << 4) |
-                     (ConvertHexChar(*(pcData + 9)));
+        p->address = (convertHexChar(*(pcData + 4)) << 20) |
+                     (convertHexChar(*(pcData + 5)) << 16) |
+                     (convertHexChar(*(pcData + 6)) << 12) |
+                     (convertHexChar(*(pcData + 7)) << 8) |
+                     (convertHexChar(*(pcData + 8)) << 4) |
+                     (convertHexChar(*(pcData + 9)));
 
         cs_temp += (p->address >> 16) & 0x0FF;
         cs_temp += (p->address >> 8) & 0x0FF;
@@ -121,12 +121,12 @@ ErrorCode CS19::getS19LineData(QByteArray sourceData, S19LineData *p)
         //获取data
         for(i = 0; i < p->count - 4; i++)
         {
-            p->data[i] = (ConvertHexChar(*(pcData + 2*i + 10)) << 4) | ConvertHexChar(*(pcData + 2*i + 11));
+            p->data[i] = (convertHexChar(*(pcData + 2*i + 10)) << 4) | convertHexChar(*(pcData + 2*i + 11));
             cs_temp += p->data[i];
         }
 
         //获取checksum
-        p->checksum = (ConvertHexChar(*(pcData + 2*i + 10)) << 4) | ConvertHexChar(*(pcData + 2*i + 11));
+        p->checksum = (convertHexChar(*(pcData + 2*i + 10)) << 4) | convertHexChar(*(pcData + 2*i + 11));
         if(p->checksum != (0xFF - cs_temp))
         {
             qDebug("S19_Verify_Error");
@@ -135,14 +135,14 @@ ErrorCode CS19::getS19LineData(QByteArray sourceData, S19LineData *p)
     }
     else if((p->type == S3) || (p->type == S7))  //4 Bytes address
     {
-        p->address = (ConvertHexChar(*(pcData + 4)) << 28) |
-                     (ConvertHexChar(*(pcData + 5)) << 24) |
-                     (ConvertHexChar(*(pcData + 6)) << 20) |
-                     (ConvertHexChar(*(pcData + 7)) << 16) |
-                     (ConvertHexChar(*(pcData + 8)) << 12) |
-                     (ConvertHexChar(*(pcData + 9)) << 8) |
-                     (ConvertHexChar(*(pcData + 10)) << 4) |
-                     (ConvertHexChar(*(pcData + 11)));
+        p->address = (convertHexChar(*(pcData + 4)) << 28) |
+                     (convertHexChar(*(pcData + 5)) << 24) |
+                     (convertHexChar(*(pcData + 6)) << 20) |
+                     (convertHexChar(*(pcData + 7)) << 16) |
+                     (convertHexChar(*(pcData + 8)) << 12) |
+                     (convertHexChar(*(pcData + 9)) << 8) |
+                     (convertHexChar(*(pcData + 10)) << 4) |
+                     (convertHexChar(*(pcData + 11)));
 
         cs_temp += (p->address >> 24) & 0x0FF;
         cs_temp += (p->address >> 16) & 0x0FF;
@@ -152,12 +152,12 @@ ErrorCode CS19::getS19LineData(QByteArray sourceData, S19LineData *p)
         //获取data
         for(i = 0; i < p->count - 5; i++)
         {
-            p->data[i] = (ConvertHexChar(*(pcData + 2*i + 12)) << 4) | ConvertHexChar(*(pcData + 2*i + 13));
+            p->data[i] = (convertHexChar(*(pcData + 2*i + 12)) << 4) | convertHexChar(*(pcData + 2*i + 13));
             cs_temp += p->data[i];
         }
 
         //获取checksum
-        p->checksum = (ConvertHexChar(*(pcData + 2*i + 12)) << 4) | ConvertHexChar(*(pcData + 2*i + 13));
+        p->checksum = (convertHexChar(*(pcData + 2*i + 12)) << 4) | convertHexChar(*(pcData + 2*i + 13));
         if(p->checksum != (0xFF - cs_temp))
         {
             qDebug("S19_Verify_Error");
