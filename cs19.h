@@ -15,7 +15,7 @@ typedef enum _S19ErrorCode
     S19_Lenght_Error = 3,
     S19_Userpapr_Error
 
-}ErrorCode;
+} ErrorCode;
 
 typedef enum _S19RecordType
 {
@@ -29,7 +29,7 @@ typedef enum _S19RecordType
     S9 = 7,
     S_MAX
 
-}RecordType;
+} RecordType;
 
 typedef struct _S19LineData
 {
@@ -40,7 +40,7 @@ typedef struct _S19LineData
     quint8 checksum;
     quint8 datalen;
 
-}S19LineData;
+} S19LineData;
 
 class CS19
 {
@@ -50,7 +50,6 @@ public:
 
 private:
     char convertHexChar(char ch);
-
 };
 
 

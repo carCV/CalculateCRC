@@ -1,36 +1,22 @@
 #ifndef CRC32_H
 #define CRC32_H
-
-#define CRCPOLY_LE 0xedb88320
-
-typedef unsigned int u32;
-typedef unsigned char u8;
+#include "type.h"
 
 
-enum VKeyGenResultEx
-{
-  KGRE_Ok = 0,
-  KGRE_BufferToSmall = 1,
-  KGRE_SecurityLevelInvalid = 2,
-  KGRE_VariantInvalid = 3,
-  KGRE_UnspecifiedError = 4
-};
+#define CRC32_POLY_LE 0xedb88320
 
-union UN_INTBYTE
-{
+union U32_BYTE {
     u32 uData;
     unsigned char cArray[4];
 };
 
-u32  crc32_le(u32 crc, unsigned char const *p, unsigned int len);
+u32 crc32_le(u32 size, u8 const *data);
 
-VKeyGenResultEx GenerateCRCEx(
-      const unsigned char*  iArray,			/* Array for the Data [in] */
-      unsigned int          iSize,			/* Length of the array for the Data [in] */
-      unsigned char*        ioArray,		/* Array for the Data [in, out] */
-      unsigned int&         oSize           /* Length of the Data [out] */
-      );
-
-
+void GenerateCRC32Ex(
+        const unsigned char*  iArray,			/* Array for the Data [in] */
+        unsigned int          iSize,			/* Length of the array for the Data [in] */
+        unsigned char*        ioArray,          /* Array for the Data [in, out] */
+        unsigned int&         oSize             /* Length of the Data [out] */
+        );
 
 #endif // CRC32_H

@@ -24,14 +24,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        widget.cpp \
+    main.cpp \
+    widget.cpp \
+    crc16.cpp \
     crc32.cpp \
     cs19.cpp \
     chex.cpp
 
 HEADERS += \
-        widget.h \
+    type.h \
+    widget.h \
+    crc16.h \
     crc32.h \
     cs19.h \
     chex.h

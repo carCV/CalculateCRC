@@ -76,9 +76,9 @@
   <widget class="QLineEdit" name="pathLineEdit">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>30</y>
-     <width>520</width>
+     <width>551</width>
      <height>30</height>
     </rect>
    </property>
@@ -91,9 +91,9 @@
   <widget class="QLineEdit" name="crcLineEdit">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>90</y>
-     <width>520</width>
+     <width>551</width>
      <height>30</height>
     </rect>
    </property>
@@ -103,10 +103,10 @@
     </font>
    </property>
   </widget>
-  <widget class="QPushButton" name="selectButton">
+  <widget class="QPushButton" name="selectBtn">
    <property name="geometry">
     <rect>
-     <x>680</x>
+     <x>730</x>
      <y>30</y>
      <width>100</width>
      <height>30</height>
@@ -121,13 +121,13 @@
     <string>选择</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="calculateButton">
+  <widget class="QPushButton" name="calculateBtn">
    <property name="enabled">
     <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>680</x>
+     <x>730</x>
      <y>90</y>
      <width>100</width>
      <height>30</height>
@@ -182,9 +182,9 @@
   <widget class="QLineEdit" name="recordsLineEdit">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>150</y>
-     <width>90</width>
+     <width>100</width>
      <height>30</height>
     </rect>
    </property>
@@ -200,10 +200,10 @@
     <string/>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="fileType">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>350</x>
      <y>150</y>
      <width>90</width>
      <height>30</height>
@@ -243,7 +243,7 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>270</x>
      <y>150</y>
      <width>90</width>
      <height>30</height>
@@ -257,6 +257,44 @@
    <property name="text">
     <string>文件类型：</string>
    </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>495</x>
+     <y>150</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>CRC 类型：</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="crcType">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>150</y>
+     <width>90</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>crc16</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>crc32</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

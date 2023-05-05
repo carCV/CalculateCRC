@@ -66,7 +66,7 @@ ErrorCode CS19::getS19LineData(QByteArray sourceData, S19LineData *p)
         return S19_Format_Error;
     }
 
-    //获取count
+    // 获取count
     p->count = (convertHexChar(*(pcData + 2)) << 4) | convertHexChar(*(pcData + 3));
     cs_temp += p->count;
     if(p->count != (lineLen / 2) - 3)

@@ -31,7 +31,7 @@ typedef struct _HexLineData
     quint8      data[80];
     quint8      checksum;
     quint8      datalen;
-}HexLineData;
+} HexLineData;
 
 class CHex
 {

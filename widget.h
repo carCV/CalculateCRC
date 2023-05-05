@@ -18,10 +18,8 @@ public:
     char convertChar2Byte(char ch);
 
 private slots:
-
-    void on_selectButton_clicked();
-
-    void on_calculateButton_clicked();
+    void on_selectBtn_clicked();
+    void on_calculateBtn_clicked();
 
 private:
     Ui::Widget *ui;
